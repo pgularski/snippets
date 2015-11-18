@@ -29,12 +29,12 @@ def update_bit(num, bit, val):
     return (num & mask) | (val << bit)
 
 
-def clear_bits_msb_throught_bit(num, bit):
+def clear_bits_from_bit_up(num, bit):
     mask = (1 << bit) - 1
     return num & mask
 
 
-def clear_bits_i_through0(num, bit):
+def clear_bits_from_bit_down(num, bit):
     mask = ~((1 << (bit + 1)) - 1)
     return num & mask
 
@@ -73,15 +73,15 @@ def test():
     _assert(_bin(update_bit(5, 3, 0)), "101")
     _assert(_bin(update_bit(5, 3, 1)), "1101")
 
-    _assert(_bin(clear_bits_msb_throught_bit(5, 0)), "0")
-    _assert(_bin(clear_bits_msb_throught_bit(5, 1)), "1")
-    _assert(_bin(clear_bits_msb_throught_bit(5, 2)), "1")
-    _assert(_bin(clear_bits_msb_throught_bit(5, 3)), "101")
+    _assert(_bin(clear_bits_from_bit_up(5, 0)), "0")
+    _assert(_bin(clear_bits_from_bit_up(5, 1)), "1")
+    _assert(_bin(clear_bits_from_bit_up(5, 2)), "1")
+    _assert(_bin(clear_bits_from_bit_up(5, 3)), "101")
 
-    _assert(_bin(clear_bits_i_through0(5, 0)), "100")
-    _assert(_bin(clear_bits_i_through0(5, 1)), "100")
-    _assert(_bin(clear_bits_i_through0(5, 2)), "0")
-    _assert(_bin(clear_bits_i_through0(5, 3)), "0")
+    _assert(_bin(clear_bits_from_bit_down(5, 0)), "100")
+    _assert(_bin(clear_bits_from_bit_down(5, 1)), "100")
+    _assert(_bin(clear_bits_from_bit_down(5, 2)), "0")
+    _assert(_bin(clear_bits_from_bit_down(5, 3)), "0")
 
 
 if __name__ == '__main__':
