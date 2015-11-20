@@ -13,7 +13,8 @@ def topsort(graph):
     for node in graph:
         for dependency in graph[node]:
             count[dependency] += 1
-    # 2. Find initial nodes - the ones that no dependency points at
+    # 2. Find initial nodes - The ones with no incoming edges, so the ones that
+    # no dependency points at
     initial_nodes = [node for node in graph if count[node] == 0]
     if graph and not initial_nodes:
         raise Exception("Circular depenency detected")
@@ -34,7 +35,7 @@ def topsort(graph):
 
 
 def test():
-    from simpletest import _assert
+    from simpletest import _assert, _assert_raises
     a, b, c, d, e, f = 'abcdef'
 
     graph = {}
@@ -59,15 +60,7 @@ def test():
         a: set([b]),
         b: set([a]),
     }
-    try:
-        print "Test: Expect exception",
-        topsort(graph)
-    except Exception as e:
-        if str(e) == "Circular depenency detected":
-            print "\tPass"
-    else:
-        print "\tFail: No error found"
-
+    _assert_raises(Exception, topsort, graph)
 
 if __name__ == '__main__':
     test()
