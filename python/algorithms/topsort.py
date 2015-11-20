@@ -35,7 +35,7 @@ def topsort(graph):
 
 def test():
     from simpletest import _assert
-    a, b, c, d, e, f = [letter for letter in 'abcdef']
+    a, b, c, d, e, f = 'abcdef'
 
     graph = {}
     _assert(topsort(graph), [])
