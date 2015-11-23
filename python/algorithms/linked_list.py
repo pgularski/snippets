@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from collections import Iterable
+
 
 class Node(object):
     def __init__(self, value):
@@ -12,9 +14,15 @@ class Node(object):
 
 
 class LinkedList(object):
-    def __init__(self):
+    def __init__(self, iterable=None):
         self.head = None
         self.tail = None
+        if iterable is not None:
+            if not isinstance(iterable, Iterable):
+                raise TypeError("'{0}' object is not iterable".format(
+                    iterable.__class__.__name__))
+            for item in iterable:
+                self.append(item)
 
     def __repr__(self):
         cur = self.head
@@ -40,6 +48,20 @@ class LinkedList(object):
             if i == index:
                 return value
         raise IndexError("list index out of range")
+
+    def __eq__(self, rhs):
+        if not isinstance(rhs, LinkedList):
+            return False
+        lhs_cur = self.head
+        rhs_cur = rhs.head
+        while lhs_cur and rhs_cur:
+            if lhs_cur.value != rhs_cur.value:
+                return False
+            lhs_cur = lhs_cur.next_node
+            rhs_cur = rhs_cur.next_node
+        if lhs_cur != rhs_cur:
+            return False
+        return True
 
     def append(self, value):
         node = Node(value)
@@ -147,6 +169,17 @@ def test():
     _assert_raises(IndexError, llist.__getitem__, 0)
     _assert_raises(IndexError, llist.__getitem__, 1)
     _assert_raises(TypeError, llist.__getitem__, 'expect int')
+    simple_list = [1, 2, 3]
+    llist = LinkedList([1, 2, 3])
+    for value, expected_value in zip(llist, simple_list):
+        _assert(value, expected_value)
+    _assert(LinkedList(), LinkedList())
+    _assert(LinkedList([]), LinkedList())
+    _assert(LinkedList([1]), LinkedList([1]))
+    _assert(LinkedList([None]), LinkedList([None]))
+    _assert(LinkedList([1, 2]) == LinkedList([1, None]), False)
+    _assert(LinkedList([None]) == LinkedList([None, None]), False)
+    _assert(LinkedList([None]) == LinkedList([None, None]), False)
 
 
 if __name__ == '__main__':
