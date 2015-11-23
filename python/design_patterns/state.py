@@ -18,7 +18,7 @@ class State(object):
 class IdleState(State):
     def run(self):
         print "Starting machine from idle..."
-        self.machine.state = RunState(self.machine)
+        self.machine.set_state(RunState)
 
     def go_idle(self):
         print "Already idle..."
@@ -30,12 +30,15 @@ class RunState(State):
 
     def go_idle(self):
         print "Going idle..."
-        self.machine.state = IdleState(self.machine)
+        self.machine.set_state(IdleState)
 
 
 class Machine(object):
     def __init__(self):
         self.state = IdleState(self)
+
+    def set_state(self, state_class):
+        self.state = state_class(self)
 
     def run(self):
         self.state.run()
