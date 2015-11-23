@@ -26,6 +26,21 @@ class LinkedList(object):
             cur = cur.next_node
         return "".join(out)
 
+    def __iter__(self):
+        cur = self.head
+        while cur:
+            yield cur.value
+            cur = cur.next_node
+
+    def __getitem__(self, index):
+        if not isinstance(index, int):
+            raise TypeError("list indices must be integers, not {0}".format(
+                index.__class__.__name__))
+        for i, value in enumerate(self):
+            if i == index:
+                return value
+        raise IndexError("list index out of range")
+
     def append(self, value):
         node = Node(value)
         if self.head is None:
@@ -118,6 +133,11 @@ def test():
     llist.append('a')
     llist.append('b')
     llist.append('c')
+    for value, expected_value in zip(llist, 'abc'):
+        _assert(value, expected_value)
+    _assert(llist[0], 'a')
+    _assert(llist[1], 'b')
+    _assert(llist[2], 'c')
     node = llist.remove('b')
     _assert(node.value, 'b')
     node = llist.remove('c')
