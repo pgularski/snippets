@@ -144,6 +144,9 @@ def test():
     node = llist.remove('a')
     _assert(llist.head, None)
     _assert(llist.tail, None)
+    _assert_raises(IndexError, llist.__getitem__, 0)
+    _assert_raises(IndexError, llist.__getitem__, 1)
+    _assert_raises(TypeError, llist.__getitem__, 'expect int')
 
 
 if __name__ == '__main__':
