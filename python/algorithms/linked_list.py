@@ -177,8 +177,8 @@ def test():
     _assert(LinkedList([]), LinkedList())
     _assert(LinkedList([1]), LinkedList([1]))
     _assert(LinkedList([None]), LinkedList([None]))
+    _assert(LinkedList([None]) == LinkedList([]), False)
     _assert(LinkedList([1, 2]) == LinkedList([1, None]), False)
-    _assert(LinkedList([None]) == LinkedList([None, None]), False)
     _assert(LinkedList([None]) == LinkedList([None, None]), False)
 
 
