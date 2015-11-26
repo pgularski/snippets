@@ -43,8 +43,8 @@ class Grid(object):
     def neighbors(self, id):
         (x, y) = id
         result = [(x + 1, y), (x - 1, y), (x, y - 1), (x, y + 1)]
-        # if (x + y) % 2 == 0: result.reverse()
-        if (x + y) % 2 == 0: random.shuffle(result)
+        if (x + y) % 2 == 0: result.reverse()
+        # if (x + y) % 2 == 0: random.shuffle(result)
         result = filter(self.in_bounds, result)
         result = filter(self.can_pass, result)
         return result
