@@ -27,7 +27,8 @@ class Grid(object):
     def neighbors(self, id):
         (x, y) = id
         result = [(x + 1, y), (x - 1, y), (x, y - 1), (x, y + 1),
-              (x + 1, y + 1), (x + 1, y - 1), (x - 1, y + 1), (x - 1, y - 1)]
+                  (x + 1, y + 1), (x + 1, y - 1),
+                  (x - 1, y + 1), (x - 1, y - 1)]
         result = map(self.wrap, result)
         return set(result)
 
@@ -53,7 +54,6 @@ def draw_grid(grid, nodes_alive, width=2):
             _print('.')
         print()
     print()
-
 
 
 def neighbors_alive(node, grid, nodes_alive):
@@ -98,7 +98,7 @@ def play(grid, nodes_alive):
 
 
 def main():
-    play(Grid(10, 10), [(0,0), (1,0), (2, 0), (2, 0)])
+    play(Grid(10, 10), [(0, 0), (1, 0), (2, 0), (2, 0)])
 
 
 def test():
