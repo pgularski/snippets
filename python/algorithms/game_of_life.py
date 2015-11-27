@@ -57,12 +57,8 @@ def draw_grid(grid, nodes_alive, width=2):
 
 
 def neighbors_alive(node, grid, nodes_alive):
-    neighbors_alive = []
     neighbors = grid.neighbors(node)
-    for neighbor in neighbors:
-        if neighbor in nodes_alive:
-            neighbors_alive.append(neighbor)
-    return neighbors_alive
+    return neighbors & nodes_alive
 
 
 def play(grid, nodes_alive):
@@ -95,10 +91,6 @@ def play(grid, nodes_alive):
         nodes_alive -= to_kill
         nodes_alive |= to_revive
         time.sleep(0.2)
-
-
-def main():
-    play(Grid(10, 10), [(0, 0), (1, 0), (2, 0), (2, 0)])
 
 
 def test():
